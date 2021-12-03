@@ -3,12 +3,9 @@
 import sys
 
 def count_incs(nums):
-    last = None
+    last = nums[0]
     count = 0
     for num in nums:
-        if last == None:
-            last = num
-            continue
         if num > last:
             count += 1
         last = num
@@ -28,16 +25,10 @@ def count_win_incs(nums):
     a = Agg()
     b = Agg()
     for i in range(0, len(nums)):
-        print("----")
         n = nums[i]
-        print("n:", n)
         a.add(n)
-        print("a:", a.window)
-        print("b:", b.window)
-        print("a:", sum(a.window), "b:", sum(b.window))
         if sum(a.window) > sum(b.window) and i >= len(a.window):
             count += 1
-            print("increase")
         b.add(n)
     return count
 
@@ -46,7 +37,5 @@ if __name__=='__main__':
     for line in sys.stdin.readlines():
         lines.append(int(line))
 
-    print(lines)
     res = count_win_incs(lines)
     print(res)
-    print("len", len(lines))
