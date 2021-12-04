@@ -47,6 +47,7 @@ def life(lines):
         i += 1
     return ''.join(res[0])
 
+# oldie but goodie, why factor when you can copy pasta!!!
 def life2(lines):
     print('lines', lines)
     res = copy.copy(lines)
