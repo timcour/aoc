@@ -22,6 +22,15 @@ def mark_line(start, end, marks):
         y += yd
 
 
+def pprint(marks):
+    xmax = max(map(lambda x: x[0], marks))
+    ymax = max(map(lambda x: x[1], marks))
+    for i in range(xmax + 1):
+        for j in range(ymax + 1):
+            print(marks[(j, i)], end=' ')
+        print ('')
+
+
 def mark_pairs(pairs):
     marks = defaultdict(int)
     for pair in pairs:
