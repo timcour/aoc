@@ -7,6 +7,19 @@ from math import prod
 from copy import deepcopy
 
 
+# General (N numbers in nums that sum to target)
+def find_sum(nums, target, N, curr):
+    if N == 0:
+        return curr if sum(curr) == target else None
+
+    for i, v in enumerate(nums):
+        r = find_sum(nums[i+1:], target, N-1, curr + [v])
+        if r:
+            return r
+
+    return None
+
+# Special (3 numbers in nums that sum to 2020)
 def find_2020(nums):
     for i in range(len(nums)):
         for j in range(i+1, len(nums)):
@@ -20,6 +33,14 @@ if __name__=='__main__':
     nums = []
     for line in sys.stdin.readlines():
         nums.append(int(line.strip()))
-    pair = find_2020(nums)
-    r = pair[0] * pair[1] * pair[2]
-    print('r', r)
+
+    #res = find_2020(nums)
+
+    target = 2020
+    res = find_sum(nums, target, 3, [])
+    if not res:
+        print("Error: failed to find target", target)
+        exit(-1)
+    pres = prod(res)
+    print(pres)
+    assert pres == 66432240, 'Unexpected product'
