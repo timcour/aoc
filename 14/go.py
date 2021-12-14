@@ -6,23 +6,21 @@ from math import prod
 from copy import deepcopy
 
 def find_insertions(tpl, rules):
-    print('finding insertions')
     insertions = []
+    # O(N)
     for i in range(1, len(tpl)):
         pair = tpl[i-1] + tpl[i]
         insertions.append((i, rules[pair]))
     return insertions
 
 def step(tpl, rules):
-    print('step')
     ins = find_insertions(tpl, rules)
     ins.reverse()
-    print('reversing')
     bits = list(tpl)
-    print('inserting')
+
+    # O(N^2)
     for op in ins:
         bits.insert(op[0], op[1])
-    print('done inserting')
     return ''.join(bits)
 
 
@@ -44,7 +42,6 @@ def fast(tpl, rules, N):
         tplmap[pair] += 1
 
     for i in range(N):
-        print('i', i)
         tplmap = fast_step(tplmap, rules)
 
     cc = Counter([tpl[0], tpl[-1]])
@@ -52,7 +49,6 @@ def fast(tpl, rules, N):
         cc[k[0]] += v
         cc[k[1]] += v
 
-    print('cc', cc)
     return int((max(cc.values()) - min(cc.values())) / 2)
 
 def diff(tpl):
@@ -68,14 +64,5 @@ if __name__=='__main__':
         pair, ic = line.strip().split(' -> ')
         rules[pair] = ic
 
-    print('tpl', tpl)
-    print('pairs', rules)
-
     res = fast(tpl, rules, 40)
     print('result', res)
-    # for i in range(40):
-    #     tpl = fast(tpl, rules)
-    #     #print(i, 'tpl', tpl)
-    #     print('i', i)
-    # d = diff(tpl)
-    # print('diff', d)
