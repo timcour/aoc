@@ -87,7 +87,7 @@ def parse_op(bits, i, version, typeid):
     i += 1
     numbits = 0
     if mode == 0:
-        # number of sub packets
+        # number of bits of subpackets
         numbits = 15
         bitlen = readn(bits, i, numbits)
         i += numbits
@@ -107,8 +107,8 @@ def parse_op(bits, i, version, typeid):
         packet['packets'] = packets
         return (i, packet)
 
-    # number of bits of subpackets
     numbits = 11
+    # number of sub packets
     numpackets = readn(bits, i, numbits)
     i += numbits
     packets = []
